@@ -7,14 +7,9 @@ on a given page.
 
 It requires no configuration and provides informative errors via the console.
 
-## Building the project
-
-Simply run "npm install" and then run "npm run build" the build results can be found in
-the "dist" directory found in the root.
-
 ## Usage
 
-Once built include the js file from the dist folder in the footer of the page and then 
+Simply include the js file from the dist folder in the footer of the page and then 
 for every image you want to lazy load set up the image tags like the following.
 
 `<img src="" data-src="url to image" class="lazy-image" />`
