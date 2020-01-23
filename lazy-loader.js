@@ -15,11 +15,9 @@ $(document).ready(function(){
             // that the image has come into view this ratio is between 0.0 and 1.0
             if (element.intersectionRatio > 0) {
                 // Get the element
-                const $image = $(element.target);
-                // Get the images data-src attribute
-                const $imageSrc = $image.attr("data-src");
-                // Set the images src attribute here
-                $image.attr("src", $imageSrc);
+                const $htmlElement = $(element.target);
+                // Pass element to handle loading
+                handleLazyLoading($htmlElement);
                 // Make sure to unobserve the element so that it wont keep firing
                 observer.unobserve(element.target);
             }
@@ -47,7 +45,30 @@ $(document).ready(function(){
     }
 });
 
+function handleLazyLoading($htmlElement){
+    if($htmlElement.is("img")){
+        lazyLoadImageTag($htmlElement);
+    }
+    else{
+        lazyloadBackgroundImage($htmlElement);
+    }
+}
+
+function lazyloadBackgroundImage($htmlElement){
+    // Get image url
+    var imageUrl = $htmlElement.attr("data-src");
+    // Set image url as a background to the element
+    $htmlElement.css("background-image", `url('${imageUrl}')`);
+}
+
+function lazyLoadImageTag($image){
+    // Get the images data-src attribute
+    const $imageSrc = $image.attr("data-src");
+    // Set the images src attribute here
+    $image.attr("src", $imageSrc);
+}
+
 // Mark up
 
 //<img src="" data-src="https://url-to-image" class="lazy-image" />
-
+//<div data-src="https://url-to-image" class="lazy-image"></div>
