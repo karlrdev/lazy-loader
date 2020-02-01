@@ -46,11 +46,11 @@ function handleLazyLoading($htmlElement){
         lazyLoadImageTag($htmlElement);
     }
     else{
-        lazyloadBackgroundImage($htmlElement);
+        lazyLoadBackgroundImage($htmlElement);
     }
 }
 
-function lazyloadBackgroundImage($htmlElement){
+function lazyLoadBackgroundImage($htmlElement){
     // Get image url
     var imageUrl = $htmlElement.attr("data-src");
     // Set image url as a background to the element
