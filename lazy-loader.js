@@ -1,14 +1,17 @@
-import $ from "jquery";
-import "intersection-observer";
 
-// Code
+// inititalise
+(function ( $ ) {
+    $.fn.LazyLoader = function() {
+        const observer = createObserver();
+        return this.each(function(){
+            setupElement($(this), observer);
+        });
+    };
+}( jQuery ));
 
-$(document).ready(function(){
-    // Get all elements that have the lazy loading class
-    const $images = $(".lazy-image");
-
+function createObserver(){
     // Set up an intersection observer method
-    const observer = new IntersectionObserver((entries, observer) => {
+    return new IntersectionObserver((entries, observer) => {
         // Go through each element that has triggered the observer
         $.each(entries, function(index, element){
             // This is the important bit the intersecion ratio tells the browser
@@ -23,27 +26,20 @@ $(document).ready(function(){
             }
         });
     });
-    
-    // Check if any lazy images exist
-    if($images.length > 0) {
-        // set up the watcher here
-        $images.each(function () {
-            // Get the attribute
-            const attr = $(this).attr("data-src");
-            // Check attribute is present before setting the observer
-            if(typeof attr !== typeof undefined && attr !== false) {
-                // create the observer
-                observer.observe(this);
-            }
-            else{
-                throw `A lazy image exists but has no data-src attribute, please check all your image tags. Failed here ${this.outerHTML}`;
-            }
-        });
+}
+
+function setupElement($element, observer){
+    // Get the attribute
+    const attr = $element.attr("data-src");
+    // Check attribute is present before setting the observer
+    if(typeof attr !== typeof undefined && attr !== false) {
+        // create the observer
+        observer.observe($element[0]);
     }
     else{
-        console.warn("...Nothing to lazy load");
+        throw `A lazy load element exists but has no data-src attribute, please check all your tags. Failed here ${this.outerHTML}`;
     }
-});
+}
 
 function handleLazyLoading($htmlElement){
     if($htmlElement.is("img")){
@@ -67,8 +63,3 @@ function lazyLoadImageTag($image){
     // Set the images src attribute here
     $image.attr("src", $imageSrc);
 }
-
-// Mark up
-
-//<img src="" data-src="https://url-to-image" class="lazy-image" />
-//<div data-src="https://url-to-image" class="lazy-image"></div>
