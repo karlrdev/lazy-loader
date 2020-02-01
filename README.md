@@ -27,3 +27,8 @@ For every image you want to lazy load set up the image tags like the following.
 ### Dependency's
 
 Depending on your usage you might need to include a polyfill for the intersection observer
+
+### In the pipeline
+
+* lazy loading of iframes
+* add in callbacks for preloading and after loading
