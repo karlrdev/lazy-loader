@@ -26,7 +26,8 @@ For every image you want to lazy load set up the image tags like the following.
 
 ### Dependency's
 
-Depending on your usage you might need to include a polyfill for the intersection observer
+Depending on your usage you might need to include a polyfill for the intersection observer. 
+A great one by w3c can be found [here](https://github.com/w3c/IntersectionObserver/tree/master/polyfill) 
 
 ## In the pipeline
 
